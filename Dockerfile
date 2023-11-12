@@ -15,6 +15,7 @@ COPY . .
 #ENV PATH="${PATH}:/usr/lib64/graalvm/graalvm22-ce-java17/bin/gu"
 RUN echo $(java --version)
 RUN echo $GRAALVM_HOME
+RUN chmod +x gradlew
 RUN ./gradlew nativeCompile --no-daemon
 
 # Second stage: Lightweight debian-slim image
