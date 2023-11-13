@@ -5,8 +5,8 @@ docker run -p 8080:8080 countdown-timer-native:0.0.1
 docker build . --tag countdown-timer-native:0.0.1 --platform=linux/amd64
 ```
 ```shell
-docker tag countdown-timer-native:0.0.1 codehunter6323/countdown-timer-native:0.0.1
-docker push docker push codehunter6323/countdown-timer-native:0.0.1
+docker tag countdown-timer-native:0.0.1 codehunter6323/countdown-timer-native:0.0.2
+docker push codehunter6323/countdown-timer-native:0.0.2
 ```
 ```shell
 # show docker account list
