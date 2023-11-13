@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/countdown-native/events")
-public class Controller {
+@RequestMapping("/api/events")
+public class EventController {
     @GetMapping
     public String getAllEvents() {
         return "allEvents";
