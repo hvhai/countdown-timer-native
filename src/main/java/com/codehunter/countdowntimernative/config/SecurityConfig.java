@@ -12,7 +12,6 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -30,14 +29,13 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
-        MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector).servletPath("/");
         http
-                .securityMatcher("/actuator/health")
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/actuator/health").permitAll())
+                .securityMatcher("/actuator/**")
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/actuator/**").permitAll())
                 .securityMatcher("/api/**")
-                .authorizeHttpRequests(authz -> authz
-                        .requestMatchers(mvcMatcherBuilder.pattern("/api/**")).hasAnyRole("user", "admin")
-                        .anyRequest().authenticated())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/admin/**").hasAnyRole("admin")
+                        .anyRequest().hasAnyRole("user", "admin"))
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(jwt -> jwt
                                 .jwtAuthenticationConverter(getJwtAuthenticationConverter())))

@@ -11,6 +11,7 @@ public class Event {
     private EventId id;
     private String name;
     private ZonedDateTime date;
+    private User host;
 
     @Value
     public static class EventId {
